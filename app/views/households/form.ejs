@@ -1,0 +1,138 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/styles/shared.css">
+        <link rel="stylesheet" href="/styles/household.css">
+    </head>    
+    </head>  
+    <script>
+        function validateForm(event) {
+        event.preventDefault();
+
+        var heatSettingInput = document.getElementById('heat_setting');
+        var noHeatingCheckbox = document.getElementById('no_heating');
+        var coolSettingInput = document.getElementById('cool_setting');
+        var noCoolingCheckbox = document.getElementById('no_cooling');
+
+        if (!!heatSettingInput.value && !!noHeatingCheckbox.checked) {
+            alert('Please input a Thermostat setting for heating or the check the "No Heating" box. You selected both.')
+            return false;
+
+        } 
+      
+        if (!heatSettingInput.value && !noHeatingCheckbox.checked) {
+           alert('Please enter the thermostat setting for heating or select "No heating".')
+            return false;
+
+        }
+
+        var coolSettingInput = document.getElementById('cool_setting');
+        var noCoolingCheckbox = document.getElementById('no_cooling');
+        if (!!heatSettingInput.value && !!noHeatingCheckbox.checked) {
+            alert('Please input a Thermostat setting for cooling or the check the "No Cooling" box. You selected both.')
+            return false;
+
+        }
+      
+        if (!coolSettingInput.value && !noCoolingCheckbox.checked) {
+            alert('Please enter the thermostat setting for cooling or select "No cooling".')
+            return false;
+
+        }
+        event.target.submit();
+        return true;
+        }
+    </script>  
+
+    <body>
+        <% const PCodeerrorMessage = getFlashMessages('postal_code_errors'); %>
+        <% if (PCodeerrorMessage && PCodeerrorMessage.length > 0) { %>
+            <div class="error-popup">
+                <% PCodeerrorMessage.forEach(function(error) { %>
+                    <%= error %><br>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <% const EMerrorMessage = getFlashMessages('email_errors'); %>
+        <% if (EMerrorMessage && EMerrorMessage.length > 0) { %>
+            <div class="error-popup">
+                <% EMerrorMessage.forEach(function(error) { %>
+                    <%= error %><br>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <% const errorMessages = getFlashMessages('household_errors'); %>
+        <% if (errorMessages && errorMessages.length > 0) { %>
+            <div class="error-popup">
+                <% errorMessages.forEach(function(error) { %>
+                    <%= error %><br>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <div class="progress-bar">
+            <div class="wip">Household Info</div><div class="arrow-right-wip"></div>
+            <div class="todo">Appliances</div>
+            <div class="todo">Power Generation</div>
+            <div class="todo done">Done</div><div class="arrow-right-end"></div>
+        </div>
+
+        <h1>Enter household info</h1>
+           <form onsubmit="return validateForm(event)" action="/households/add" method="post">
+            <label for="email">Please enter your email address:</label>
+            <!-- Example: here's how you repopulate the value if there was an error message -->
+            <input type="email" id="email" name="email" value="<%= email %>" required></br>
+
+            <label for="zip">Please enter your five-digit postal code:</label>
+            <input type="text" id="zip" name="zip" pattern="^(?!00000)[0-9]{5}$" value="<%= zip %>" required>
+            </br>
+
+            <!-- To repopulate this one, you need to use JS to add the "selected" attribute to the cosen option -->
+            <label>Please enter the following details for your household.</label></br>
+            <label for="hometype">Home type:</label>
+            <select id="hometype" name="hometype" required>
+                <option value="">Select</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="townhome">Townhome</option>
+                <option value="condo">Condominium</option>
+                <option value="modular">Modular Home</option>
+                <option value="tiny">Tiny House</option>
+            </select></br>
+
+
+            <label for="sqft">Square footage:</label>
+            <input type="number" id="sqft" name="sqft" required min="50" value="<%= sqft %>"></br>
+
+            <!-- To repopulate the checkboxes, you need to use JS to add the "checked" attribute to the cosen option -->
+            <label for="heat_setting">Thermostat setting for heating:</label>
+            <input type="number" id="heat_setting" name="heat_setting" min="60" max="80" value="<%= heat_setting %>">
+            <input type="checkbox" id="no_heating" name="no_heating" value="no_heating">
+            <label for="no_heating">No heating</label></br>
+
+            <label for="cool_setting">Thermostat setting for cooling:</label>
+            <input type="number" id="cool_setting" name="cool_setting" min="60" max="80" value="<%= cool_setting %>">
+            <input type="checkbox" id="no_cooling" name="no_cooling" value="no_cooling">
+            <label for="no_cooling">No cooling</label></br>
+
+            <div id="utilities">
+                <label for="public-utilities">Public Utilities (if none, leave unchecked):</label></br>
+                <input type="checkbox" id="electric" name="electric" value="electric">
+                <label for="electric">Electric</label></br>
+                <input type="checkbox" id="gas" name="gas" value="gas">
+                <label for="gas">Gas</label></br>
+                <input type="checkbox" id="steam" name="steam" value="steam">
+                <label for="steam">Steam</label></br>
+                <input type="checkbox" id="liquid_fuel" name="liquid_fuel" value="liquid_fuel">
+                <label for="liquid_fuel">Liquid fuel</label></br>
+            </div>
+
+            
+            <input type="submit" value="Next" class="button">
+        </form>
+            
+        <br><p><a href="/" class="back">Back to Main Menu</a></p>
+    </body>
+</html>

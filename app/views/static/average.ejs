@@ -1,0 +1,115 @@
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Household Averages by Radius</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>    
+    <body>
+        <h1>Household Averages by Radius</h1>
+        <form class="" method="POST" action="/reports/household-average">
+            <div class="search_form">
+                <label for="postal_code">Postal Code to center the search on:</label>
+                <input type="text" id="postal_code" name="postal_code" pattern="^(?!00000)[0-9]{5}$" required value="<%= postal_code %>">
+            </div>
+
+                <label for="search_radius">Search Radius:</label>
+                <select id="search_radius" name="search_radius" required>
+                    <option value="0">0</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="250">250</option>
+                </select>
+            <button type="submit" class="button radius">Search</button>
+        </form>
+
+            <body>
+                <% const errorMessage = getFlashMessages('errors'); %>
+                <% if (errorMessage && errorMessage.length > 0) { %>
+                    <div class="error-popup radius">
+                        <% errorMessage.forEach(function(error) { %>
+                            <%= error %><br>
+                        <% }) %>
+                    </div>
+                <% } %>
+
+        <% if (typeof results !== 'undefined' && Array.isArray(results) && results.length > 0) { %>
+            <h2>Results</h2>
+            <h3 style="text-align:center"> Home types</h3>
+            <table class="reports">
+            <tr>
+                <td>Central Postal Code</td>
+                <td>Search Radius</td>
+                <td># Households</td>
+                <td># of Houses</td>
+                <td># of Apartments</td>
+                <td># of Townhomes</td>
+                <td># of Condominiums</td>
+                <td># of Modular Homes</td>
+                <td># of Tiny Houses</td>
+            </tr>
+            <% results.forEach(function(result) { %>
+                <tr>
+                    <td><%= result.central_postal_code %></td>
+                    <td><%= result.search_radius %></td>
+                    <td><%= result.households_count %></td>
+                    <td><%= result.house_type_count %></td>
+                    <td><%= result.apartment_type_count %></td>
+                    <td><%= result.townhome_type_count %></td>
+                    <td><%= result.condominium_type_count %></td>
+                    <td><%= result.modular_home_type_count %></td>
+                    <td><%= result.tiny_house_type_count %></td>
+                </tr>
+            <% }); %>
+            </table><br><br>
+
+            <h3 style="text-align:center">Averages</h3>
+            <table class="reports">
+                <tr>
+                    <td>Average square footage</td>
+                    <td>Average thermostat setting - Heat</td>
+                    <td>Average thermostat setting - Cool</td>
+                    <td>Utilities used</td>
+                </tr>
+                <% results.forEach(function(result) { %>
+                    <tr>
+                        <td><%= result.avg_sq_footage %></td>
+                        <td><%= result.avg_heat_thermostat_setting %></td>
+                        <td><%= result.avg_cool_thermostat_setting %></td>
+                        <td><%= result.utilities_list %></td>
+
+                    </tr>
+            <% }); %>
+            </table><br><br>
+
+
+            <h3 style="text-align:center"> Off-grid</h3>
+            <table class="reports">
+                <tr>
+                    <td># of Off-grid homes</td>
+                    <td>Households with generators</td>
+                    <td>Most common generation method</td>
+                    <td>Average Monthly power generated</td>
+                    <td>Households with battery storage</td>
+                </tr>
+                <% results.forEach(function(result) { %>
+                    <tr>
+                        <td><%= result.off_grid_homes %></td>
+                        <td><%= result.households_with_generators %></td>
+                        <td><%= result.most_common_generation_method %></td>
+                        <td><%= result.avg_monthly_power_generated %></td>
+                        <td><%= result.households_with_battery_storage %></td>
+                    </tr>
+            <% }); %>
+            </table><br><br>
+
+          <% } else if (typeof results !== 'undefined' && Array.isArray(results) && results.length === 0) { %>
+            <p>No results found.</p>
+          <% } %>
+
+        <p><a href="/reports"  class="back">Back to Reports</a></p>
+    </body>
+</html>

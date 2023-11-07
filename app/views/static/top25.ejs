@@ -1,0 +1,28 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Top 25 Manufacturers</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>
+  
+    <body>
+        <h1>Top 25 Manufacturers</h1>
+        <br>
+
+        <table class="reports">
+            <tr>
+                <th>Manufacturer</font></th>
+                <th>Number of Appliances</font></th>
+            </tr>
+            <% mans.forEach(function(man) { %>
+                <tr>
+                    <td><a href="/reports/manufacturers?man_name=<%= man.manufacturer %>" class="reports"><%= man.manufacturer %></a></td>
+                    <td><%= man.num_appliances %></td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+    <br>
+    <br>
+    <p><a href="/reports" class="back">Back to Reports</a></p>
+</html>

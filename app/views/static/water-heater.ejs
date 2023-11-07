@@ -1,0 +1,41 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Water Heater Statistics</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>  
+   
+    <body>
+        <h1>Water Heater Statistics</h1>
+        <% const errorMessages = getFlashMessages('errors'); %>
+        <% if (errorMessages && errorMessages.length > 0) { %>
+            <% for (let i = 0; i < errorMessages.length; i++) { %>
+            <li><%= errorMessages[i] %></li>
+            <% } %>
+        <% } %>
+
+        <table class="reports">
+            <tr>
+                <th>State</font></th>
+                <th>Average Tank Size</font></th>
+                <th>Average BTU</font></th>
+                <th>Average Temperature Setting</font></th>
+                <th>Number of Temperature Settings Provided</font></th>
+                <th>Number of Temperature Settings Not Provided</font></th>
+
+            </tr>
+            <% states.forEach(function(oneState) { %>
+                <tr>
+                    <td><a href="/reports/state?oneState=<%= oneState.state %>" class="reports"><%= oneState.state %></a></td>
+                    <td><%= oneState.avg_tank_size %></td>
+                    <td><%= oneState.avg_btu %></td>
+                    <td><%= oneState.avg_temp_setting %></td>
+                    <td><%= oneState.count_temp_provided %></td>
+                    <td><%= oneState.count_temp_not_provided %></td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+    <br><br>
+    <p><a href="/reports" class="back">Back to Reports</a></p>
+</html>

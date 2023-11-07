@@ -1,0 +1,13 @@
+set foreign_key_checks = 0;
+ drop table if exists airconditioner; 
+ drop table if exists airhandler; 
+ drop table if exists appliance; 
+ drop table if exists generator; 
+ drop table if exists heater; 
+ drop table if exists heatpump; 
+ drop table if exists household; 
+ drop table if exists manufacturer; 
+drop table if exists postalcode; 
+drop table if exists publicutility;
+drop table if exists waterheater;
+set foreign_key_checks = 1;

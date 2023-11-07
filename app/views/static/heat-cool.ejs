@@ -1,0 +1,88 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Offgrid Households Dashboard</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>   
+  
+    <body>
+        <h1>Heating/Cooling method details</h1>
+        <ol>
+          <h2><li>Air conditioner statistics:</li></h2>
+            <table class="reports">
+              <thead>
+                <tr>
+                  <th>Household type</th>
+                  <th>The count of air conditioners</th>
+                  <th>Average air conditioner BTUs</th>
+                  <th>Average RPM</th>
+                  <th>Average EER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% bulletone.forEach(function(row) { %>
+                    <tr>
+                      <td style="text-align:center"><%= row.HouseholdType %> </td>
+                      <td style="text-align:center"><%= row.num_air_conditioners %> </td>
+                      <td style="text-align:center"><%= row.avg_btu %> </td>
+                      <td style="text-align:center"><%= row.avg_rpm %> </td>
+                      <td style="text-align:center"><%= row.avg_eer %> </td>
+                    </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+        <br><br>
+        <h2><li>Heater statistics:</li></h2>
+            <table class="reports">
+              <thead>
+                <tr>
+                  <th>Household type</th>
+                  <th>The count of heaters</th>
+                  <th>Average heater BTUs</th>
+                  <th>Average RPM</th>
+                  <th>The most common energy source</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% bullettwo.forEach(function(row) { %>
+                    <tr>
+                      <td style="text-align:center"><%= row.HouseholdType %> </td>
+                      <td style="text-align:center"><%= row.num_heaters %> </td>
+                      <td style="text-align:center"><%= row.avg_btu %> </td>
+                      <td style="text-align:center"><%= row.avg_rpm %> </td>
+                      <td style="text-align:center"><%= row.most_source %> </td>
+                    </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+        <br><br>
+        <h2><li>Heat pump statistics:</li></h2>
+            <table class="reports">
+              <thead>
+                <tr>
+                  <th>Household type</th>
+                  <th>The count of heat pumps</th>
+                  <th>Average heat pump BTUs</th>
+                  <th>Average RPM</th>
+                  <th>Average SEER</th>
+                  <th>Average HSPF</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% bulletthree.forEach(function(row) { %>
+                    <tr>
+                      <td style="text-align:center"><%= row.HouseholdType %> </td>
+                      <td style="text-align:center"><%= row.num_heatpumps %> </td>
+                      <td style="text-align:center"><%= row.avg_btu %> </td>
+                      <td style="text-align:center"><%= row.avg_rpm %> </td>
+                      <td style="text-align:center"><%= row.avg_seer %> </td>
+                      <td style="text-align:center"><%= row.avg_hspf %> </td>
+                    </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+          <br>
+        </ol>
+        <p><a href="/reports"  class="back">Back to Reports</a></p>
+    </body>
+</html>

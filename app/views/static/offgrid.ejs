@@ -1,0 +1,97 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Offgrid Households Dashboard</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>   
+  
+    <body>
+        <h1>Offgrid Households Dashboard</h1>
+
+        <ol>
+            <li>The state with the most off-the-grid households and the count of its off-the-grid households: </li>
+            <p>State: <%= bulletone.state %></p>
+            <p>Count: <%= bulletone.email_count %></p>
+            <br>      
+            <li>Average battery storage capacity per battery for all off-the-grid households:</li>
+            <p><%= bullettwo.avg_storage_capacity %></p>
+            <br>    
+            <li>Percentages for all power generation type for all off-the-grid households </li>
+                <table class="reports">
+                    <thead>
+                        <tr>
+                            <th>Power generation type</th>
+                            <th>Percentages for each type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bulletthree.forEach(function(row) { %>
+                          <tr>
+                            <td><%= row.type %></td>
+                            <td><%= row.Percentage %>%</td>
+                          </tr>
+                        <% }); %>
+                    </tbody>
+                </table class="reports">
+            <br>
+            <br>
+            <li>Percentages for all household type for all off-the-grid households</li>
+                <table class="reports">
+                    <thead>
+                        <tr>
+                            <th>Household type</th>
+                            <th>Percentages for each type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bulletfour.forEach(function(row) { %>
+                          <tr>
+                            <td><%= row.type %></td>
+                            <td><%= row.Percentage %>%</td>
+                          </tr>
+                        <% }); %>
+                    </tbody>
+                </table class="reports">
+            <br>
+            <br>
+            <li>Average water heater tank size</li>
+                <table class="reports">
+                    <tr>
+                        <th>Off-the-grid: </th>
+                        <th>On-the-grid: </th>
+                    </tr>
+                    <tr>
+                        <td><%= bulletfiveone[0].avg_tank_size %></td>
+                        <td><%= bulletfivetwo[0].avg_tank_size %></td>
+                    </tr>
+
+                </table class="reports">
+            <br>
+            <br>
+            <li>Appliance type and the corresponding Min/ Average/ Max BTU</li>
+                <table class="reports">
+                  <thead>
+                    <tr>
+                      <th>Appliance Type</th>
+                      <th>Minimum BTU</th>
+                      <th>Average BTU</th>
+                      <th>Maximum BTU</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% bulletsix.forEach(function(row) { %>
+                        <tr>
+ 
+                          <td><%= row.type %> </td>
+                          <td><%= row.min_btu %> </td>
+                          <td><%= row.avg_btu %> </td>
+                          <td><%= row.max_btu %> </td>
+                        </tr>
+                      <% }); %>
+                  </tbody>
+                </table class="reports">
+        </ol>
+        <br><br>
+        <p><a href="/reports"  class="back">Back to Reports</a></p>
+    </body>
+</html>

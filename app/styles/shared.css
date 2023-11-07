@@ -1,0 +1,265 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.progress-bar {
+  font-size: 0.9em;
+  margin: 0.5em auto;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.completed,
+.wip,
+.todo {
+  width: 20%;
+  padding: 5px;
+}
+
+.wip {
+  background-color: rgb(115, 202, 115);
+}
+
+.completed {
+  background-color: rgb(6, 145, 6);
+}
+
+.todo {
+  background-color: rgb(202, 193, 193);
+}
+
+.arrow-right-wip {
+  width: 0;
+  height: 0;
+  border-top: 1em solid rgb(202, 193, 193);
+  border-bottom: 1em solid rgb(202, 193, 193);
+  border-left: 1em solid rgb(115, 202, 115);
+}
+
+.arrow-right-between {
+  width: 0;
+  height: 0;
+  border-top: 1em solid rgb(202, 193, 193);
+  border-bottom: 1em solid rgb(202, 193, 193);
+  border-left: 1em solid rgb(6, 145, 6);
+}
+
+.arrow-right-completed {
+  width: 0;
+  height: 0;
+  border-top: 1em solid rgb(115, 202, 115);
+  border-bottom: 1em solid rgb(115, 202, 115);
+  border-left: 1em solid rgb(6, 145, 6);
+}
+
+.arrow-right-end {
+  width: 0;
+  height: 0;
+  border-top: 1em solid transparent;
+  border-bottom: 1em solid transparent;
+  border-left: 1em solid rgb(202, 193, 193);
+}
+
+.arrow-right-done {
+  width: 0;
+  height: 0;
+  border-top: 1em solid transparent;
+  border-bottom: 1em solid transparent;
+  border-left: 1em solid rgb(6, 145, 6);
+}
+
+.highlight {
+  background-color: rgb(165, 226, 112);
+}
+
+.error-popup {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.radius {
+  top: 2%;
+}
+
+.button {
+  margin: 0 auto;
+  display: block;
+  border-radius: 5px;
+  background-color: green;
+  border: 1px solid green;
+  color: white;
+  padding: 5px;
+  font-size: 1.25rem;
+  width: 7rem;
+}
+
+input.button:hover, .button:hover, button.search_form:hover {
+  background-color: rgb(4, 91, 4);
+  border: 1px solid rgb(4, 91, 4);
+}
+
+h1 {
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.reports {
+  margin-left: 5%;
+}
+
+h2, h3 {
+  margin-left: 5%;
+}
+
+form {
+  margin-left: 5%;
+  border: 1px solid gray;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 90%;
+}
+
+form.search_form, form.delete-btn {
+  border: none;
+}
+
+form.delete-btn {
+  padding: 0;
+  margin: 0;
+}
+
+input.search_form {
+  display: inline-block;
+  width: 75%;
+  height: 40px;
+}
+
+button.search_form {
+  height: 40px;
+  width: 7%;
+  background-color: green;
+  border: 1px solid green;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+button.radius {
+  display: inline-block;
+  position: relative;
+  left: 65%;
+}
+
+#email {
+  width: 65%;
+  padding-right: 0;
+  margin-bottom: 5px;
+  margin-right: 0;
+}
+
+label {
+  padding-bottom: 5px;
+}
+
+#zip, #sqft {
+  margin-bottom: 5px;
+}
+
+#utilities, #air_handler_input, #water_heater_source_input {
+  margin-top: 10px;
+  padding-bottom: 0;
+}
+
+a.button {
+  all: unset;
+}
+
+table {
+  margin-left: 5%;
+  width: 90%;
+  background-color: black;
+}
+
+td {
+  padding: 10px;
+}
+
+tr {
+  background-color: white;
+}
+
+p {
+  margin-left: 5%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a.reports:hover {
+  color: rgb(57, 112, 154);
+}
+
+a.back {
+  color: rgb(57, 112, 154);
+  font-size: 1.5em;
+}
+
+a.back:hover {
+  color: rgb(14, 81, 137);
+}
+
+table.reports {
+  text-align: center;
+  background-color: white;
+  width: 90%;
+}
+
+div.reports {
+  margin: 0;
+  font-size: 1.25em;
+}
+
+.reports th {
+  font-size: 1.25em;
+}
+
+.reports th, .reports td {
+  border-bottom: 5px solid #ddd;
+}
+
+.headings {
+  padding: 10px;
+  border-bottom: 5px solid #ddd;
+}
+
+.skip {
+  display: inline-block;
+  position: relative;
+  left: 80%;
+}
+
+.add {
+  display: inline-block;
+  position: relative;
+  left: 80%;
+  margin-bottom: 10px;
+}

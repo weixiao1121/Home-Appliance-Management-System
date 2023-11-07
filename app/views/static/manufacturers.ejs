@@ -1,0 +1,44 @@
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Manufacturer</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head> 
+
+    <body>
+        <h1><%= man_name %></h1>
+        <table class="reports">
+            <tr>
+                <th>Type</th>
+                <th>Number of Appliances</th>
+            </tr>
+            <% types.forEach(function(type) { %>
+                <tr>
+                    <td><%= type.type %></td>
+                    <td><%= type.num_appliances %></td>
+                </tr>
+            <% }); %>
+
+        </table>
+        <br>
+        <br>
+        <h2>Air Handler Breakdown</h2>
+
+        <table class="reports">
+            <tr>
+                <th>Type</font></th>
+                <th>Number of Appliances</font></th>
+            </tr>
+            <% types1.forEach(function(type) { %>
+                <tr>
+                    <td><%= type.type %></td>
+                    <td><%= type.num_appliances %></td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+    <br><br>
+    <p><a href="/reports/top25" class="back">Back to Top25</a></p>
+    <p><a href="/reports" class="back">Back to Reports</a></p>
+</html>

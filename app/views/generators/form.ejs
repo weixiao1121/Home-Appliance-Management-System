@@ -1,0 +1,44 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/styles/shared.css">
+        <link rel="stylesheet" href="/styles/appliance.css">
+    </head>    
+    <body>
+        <div class="progress-bar">
+            <div class="completed">Household Info</div>
+            <div class="completed">Appliances</div><div class="arrow-right-completed"></div>
+            <div class="wip">Power Generation</div><div class="arrow-right-wip"></div>
+            <div class="todo">Done</div><div class="arrow-right-end"></div>
+        </div>
+        <h1>Add power generation</h1>
+        <% const errorMessages = getFlashMessages('errors'); %>
+        <% if (errorMessages && errorMessages.length > 0) { %>
+        <% for (let i = 0; i < errorMessages.length; i++) { %>
+        <li><%= errorMessages[i] %></li>
+        <% } %>
+        <% } %>
+
+        <form action="/generators/add" method="post">
+            <input type="hidden" id="email" name="email" value="<%= email %>">
+            <label for="form">Please provide power generation details.</label></br>
+
+            <label for="type">Type:</label>
+            <select id="type" name="type" <% if (!skipButtonEnabled) { %> required <% } %> >
+                <option value="">Select</option>
+                <option value="solar">Solar</option>
+                <option value="wind-turbine">Wind Turbine</option>
+            </select></br>
+
+            <label for="avg_monthly">Monthly kWh</label>
+            <input type="number" id="avg_monthly" name="avg_monthly" <% if (!skipButtonEnabled) { %> required <% } %> min="10" max="100"></br>
+            
+            <label for="storage_capacity">Storage kWh</label>
+            <input type="number" id="storage_capacity" name="storage_capacity" min="1" max="100"></br>
+
+
+            <input type="submit" value="Add" class="button add"><br>
+        </form>
+        <button class="skip button" <% if (!skipButtonEnabled) { %> style="display:none"  <% } %>><a href="/submission" class="button skip">Skip</a></button>
+    </body>
+</html>

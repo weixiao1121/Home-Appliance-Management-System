@@ -1,0 +1,42 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Water Heater Statistics</title>
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>   
+    <body>
+        <h1 class="reports"><%= state %></h1>
+
+        <% const errorMessages = getFlashMessages('errors'); %>
+            <% if (errorMessages && errorMessages.length > 0) { %>
+                <% for (let i = 0; i < errorMessages.length; i++) { %>
+                    <li><%= errorMessages[i] %></li>
+                <% } %>
+        <% } %>
+        
+        <table class="reports">
+            <tr>
+                <td>Energy Source</td>
+                <td>Minimum Tank Size</td>
+                <td>Average Tank Size</td>
+                <td>Maximum Tank Size</td>
+                <td>Minimum Temperature Setting</td>
+                <td>Average Temperature Setting</td>
+                <td>Maximum Temperature Setting</td>
+            </tr>
+            <% data.forEach(function(result) { %>
+                <tr>
+                    <td><%= result.energy_source %></td>
+                    <td><%= result.min_tank_size %></td>
+                    <td><%= result.avg_tank_size %></td>
+                    <td><%= result.max_tank_size %></td>
+                    <td><%= result.min_temp_setting %></td>
+                    <td><%= result.avg_temp_setting %></td>
+                    <td><%= result.max_temp_setting %></td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+    <p><a href="/reports/water-heater" class="back">Back to Water Heater Report</a></p>
+    <p><a href="/reports" class="back">Back to Reports</a></p>
+</html>

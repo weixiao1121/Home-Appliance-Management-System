@@ -1,0 +1,223 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/styles/shared.css">
+    </head>
+    <body>
+        <div class="progress-bar">
+            <div class="completed">Household Info</div>
+            <div class="arrow-right-completed"></div>
+            <div class="wip">Appliances</div>
+            <div class="arrow-right-wip"></div>
+            <div class="todo">Power Generation</div>
+            <div class="todo">Done</div>
+            <div class="arrow-right-end"></div>
+        </div>
+
+        <h1>Add appliance</h1>
+        <form action="/appliances/add" method="post">
+        <% const errorMessages=getFlashMessages('errors'); %>
+        <% if (errorMessages && errorMessages.length> 0) { %>
+            <% for (let i=0; i < errorMessages.length; i++) { %>
+                <li><%= errorMessages[i] %></li>
+            <% } %>
+        <% } %>
+
+        <input type="hidden" id="email" name="email" value="<%= email %>">
+        <label for="form">Please provide the details for the appliance.</label><br><br>
+
+        <label for="type">Appliance type:</label>
+        <select id="type" name="type" required onchange="showOrHideInput(this)">
+            <option value="">Select</option>
+            <option value="air_handler">Air Handler</option>
+            <option value="water_heater">Water Heater</option>
+        </select></br>
+
+        <label for="manufacturer">Manufacturer:</label>
+        <select id="manufacturer" name="manufacturer" required>
+            <option value="">Select</option>
+            <% if (typeof manufacturers !=='undefined' && manufacturers.length> 0) { %>
+                <% manufacturers.forEach(function(manufacturer) { %>
+                    <option value="<%= manufacturer.name %>"><%= manufacturer.name %></option>
+                <% }) %>
+            <% } else { %>
+                <option value="" disabled>No manufacturers available</option>
+            <% } %>
+        </select><br>
+
+        <label for="model">Model name:</label>
+        <input type="text" id="model" name="model"><br>
+
+        <div id="btus_input">
+            <label for="btus">BTUs</label>
+            <input type="number" id="btus" name="btus" min="5000" max="300000" required><br>
+        </div>
+
+        <div id="form_group" style="display:none;">
+            <div id="air_handler_input">
+                <label for="air_handler_type">Appliance Type:</label><br>
+                
+                <input type="checkbox" id="ac" name="air_handler_type" value="ac" onclick="showOrHideAirHandlerInput()">
+                <label for="ac">Air Conditioner</label><br>
+
+                <input type="checkbox" id="heater" name="air_handler_type" value="heater" onclick="showOrHideAirHandlerInput()">
+                <label for="heater">Heater</label><br>
+               
+                <input type="checkbox" id="heatpump" name="air_handler_type" value="heat pump" onclick="showOrHideAirHandlerInput()">
+                <label for="heatpump">Heat Pump</label><br><br>
+            </div>
+
+            <div id="rpms_input">
+                <label for="rpm">Fan RPMs:</label>
+                <input type="number" id="rpm" name="rpm" min="100" max="1000"><br>
+            </div>
+
+            <div id="eer_input">
+                <label for="eer">Energy efficiency ratio:</label>
+                <input type="number" id="eer" name="eer" min="0" max="100"><br>
+            </div>
+
+            <div id="heater_source_input">
+                <label for="heater_source">Heater Energy source:</label>
+                <select id="heater_source" name="heater_source">
+                    <option value="">Select</option>
+                    <option value="electric">Electric</option>
+                    <option value="gas">Gas</option>
+                    <option value="thermosolar">Thermosolar</option>
+                </select><br>
+            </div>
+
+            <div id="water_heater_source_input">
+                <label for="water_heater_source">Water Heater Energy source:</label>
+                <select id="water_heater_source" name="water_heater_source">
+                    <option value="">Select</option>
+                    <option value="electric">Electric</option>
+                    <option value="gas">Gas</option>
+                    <option value="fuel_oil">Fuel Oil</option>
+                    <option value="heat_pump">Heat Pump</option>
+                </select><br>
+            </div>
+
+            <div id="tank_size_input">
+                <label for="tank_size">Tank size (gallons):</label>
+                <input type="number" id="tank_size" name="tank_size" min="5" max="100"><br>
+            </div>
+
+            <div id="temp_input">
+                <label for="temp">Current Temperature Setting:</label>
+                <input type="number" id="temp" name="temp" min="60" max="80"><br>
+            </div>
+
+            <div id="seer_input">
+                <label for="seer">SEER rating:</label>
+                <input type="number" id="seer" name="seer" min="5.0" max="20.0"><br>
+            </div>
+
+            <div id="hspf_input">
+                <label for="hspf">HSPF rating:</label>
+                <input type="number" id="hspf" name="hspf" min="5.0" max="15.0"><br>
+            </div>
+
+            <p id="required_text" style="color:red;"></p>
+            <input type="submit" value="Add" id="submit_button" class="button">
+        </form>
+
+        <script type="text/javascript">
+            function showOrHideInput(select) {
+                if (select.value !== "") {
+                    document.getElementById("form_group").style.display = "block"
+                } else {
+                    document.getElementById("form_group").style.display = "none"
+                }
+                if (select.value === "water_heater") {
+                    document.getElementById("tank_size_input").style.display = "block"
+                    document.getElementById("temp_input").style.display = "block"
+                    document.getElementById("water_heater_source_input").style.display = "block"
+                    document.getElementById("water_heater_source").required = true
+                    document.getElementById("tank_size").required = true
+                    document.getElementById("submit_button").disabled = false
+
+
+                } else {
+                    document.getElementById("tank_size_input").style.display = "none"
+                    document.getElementById("temp_input").style.display = "none"
+                    document.getElementById("water_heater_source_input").style.display = "none"
+                    document.getElementById("tank_size").required = false
+                    document.getElementById("water_heater_source").required = false
+                }
+
+                if (select.value === "air_handler") {
+                    document.getElementById("rpms_input").style.display = "block"
+                    document.getElementById("rpm").required = true
+                    document.getElementById("air_handler_input").style.display = "block"
+                    showOrHideAirHandlerInput()
+                } else {
+                    document.getElementById("rpms_input").style.display = "none"
+                    document.getElementById("rpm").required = false
+                    document.getElementById("air_handler_input").style.display = "none"
+                    document.getElementById("eer_input").style.display = "none"
+                    document.getElementById("heater_source_input").style.display = "none"
+                    document.getElementById("seer_input").style.display = "none"
+                    document.getElementById("hspf_input").style.display = "none"
+                    document.getElementById("required_text").textContent = ""
+                    document.getElementById("submit_button").disabled = false
+                }
+            }
+
+            function showOrHideAirHandlerInput() {
+                let checkedValues = document.querySelectorAll("#air_handler_input input[type='checkbox']:checked")
+                if (checkedValues.length === 0) {
+                    document.getElementById("required_text").textContent = "Please select at least one type of air handlers"
+                    document.getElementById("submit_button").disabled = true
+                } else {
+                    document.getElementById("required_text").textContent = ""
+                    document.getElementById("submit_button").disabled = false
+                }
+
+                let ac = false
+                let heater = false
+                let heatpump = false
+                for (let i = 0; i < checkedValues.length; i++) {
+                    const value = checkedValues[i].value
+                    if (value === 'ac') {
+                        ac = true
+                    }
+                    else if (value === 'heater') {
+                        heater = true
+                    }
+                    else if (value === 'heat pump') {
+                        heatpump = true
+                    }
+                }
+                if (ac) {
+                    document.getElementById("eer_input").style.display = "block"
+                    document.getElementById("eer").required = true;
+                } else {
+                    document.getElementById("eer_input").style.display = "none"
+                    document.getElementById("eer").required = false;
+                }
+                if (heater) {
+                    document.getElementById("heater_source_input").style.display = "block"
+                    document.getElementById("heater_source").required = true;
+                } else {
+                    document.getElementById("heater_source_input").style.display = "none"
+                    document.getElementById("heater_source").required = false;
+                }
+                if (heatpump) {
+                    document.getElementById("seer_input").style.display = "block"
+                    document.getElementById("hspf_input").style.display = "block"
+                    document.getElementById("seer").required = true;
+                    document.getElementById("hspf").required = true;
+                } else {
+                    document.getElementById("seer_input").style.display = "none"
+                    document.getElementById("hspf_input").style.display = "none"
+                    document.getElementById("seer").required = false;
+                    document.getElementById("hspf").required = false;
+
+
+                }
+            }
+        </script>
+    </body>
+</html>
+

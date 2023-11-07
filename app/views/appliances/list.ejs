@@ -1,0 +1,53 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/styles/shared.css">
+        <link rel="stylesheet" href="/styles/appliance.css">
+    </head>    
+    <body>
+        <div class="progress-bar">
+            <div class="completed">Household Info</div>
+            <div class="completed">Appliances</div><div class="arrow-right-between"></div>
+            <div class="todo">Power Generation</div>
+            <div class="todo">Done</div><div class="arrow-right-end"></div>
+        </div>
+        <h1>Appliances</h1>
+        <input type="hidden" id="email" name="email" value="<%= email %>">
+
+        <% const errorMessages = getFlashMessages('errors'); %>
+        <% if (errorMessages && errorMessages.length > 0) { %>
+          <% for (let i = 0; i < errorMessages.length; i++) { %>
+            <li><%= errorMessages[i] %></li>
+          <% } %>
+        <% } %>
+
+        <p>You have added the following appliances to your household: <%= email %></p>
+
+        <table>
+            <tr>
+                <td>Appliance #</td>
+                <td>Type</td>
+                <td>Manufacturer</td>
+                <td>Model</td>
+                <td>Delete</td>
+            </tr>
+            <% apps.forEach(function(app) { %>
+                <tr>
+
+                    <td><%= app.sequence_number %></td>
+                    <td><%= app.type %>
+                    <td><%= app.manufacturer %></td>
+                    <td><%= app.model %></td>
+                    <td>
+                        <form class="delete-btn" action="/appliances/delete/?email=<%= email %>&seq_number=<%= app.sequence_number%>" method="post">
+                            <button type="submit" class="delete-btn button">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+
+        <p><a href="/appliances?email=<%= email %>" class="back">+Add another appliance</a></p>
+        <button class="button"><a href="/generators?email=<%= email %>" class="button">Next</a></button>
+    </body>
+</html>

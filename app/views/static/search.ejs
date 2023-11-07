@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Search</title>
+    <link rel="stylesheet" href="/styles/shared.css">
+</head>
+<body>
+    <h1>Search</h1>
+
+    <form class="search_form" method="POST" action="/reports/search" onsubmit="return validateForm()">
+        <input class="search_form" type="text" name="search_term" placeholder="Enter Search Keyword">
+        <button class="search_form" type="submit">Search</button>
+    </form>
+
+<script>
+    function validateForm() {
+        var input = document.getElementsByName("search_term")[0].value;
+        var regex = /^[a-zA-Z0-9\s]+$/;
+
+        if (!regex.test(input)) {
+            var errorPopup = document.createElement("div");
+            errorPopup.className = "error-popup";
+            errorPopup.innerHTML = "Invalid User Input, Please Check Your Entry Again";
+
+            document.body.appendChild(errorPopup);
+
+            setTimeout(function() {
+                errorPopup.style.display = "none";
+            }, 3000);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    function highlightMatch(text, keyword) {
+        var regex = new RegExp(keyword, "gi");
+        return text.replace(regex, "<span class='highlight'>$&</span>");
+    }
+</script>
+
+    <% if (typeof results !== 'undefined') { %>
+        <% if (Array.isArray(results) && results.length > 0) { %>
+            <h2>Search Results for: '<%= search_term %>'</h2>
+            <table class="reports">
+                <thead>
+                    <tr>
+                        <th>Manufacturer</th>
+                        <th>Model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach(result => { %>
+                        <tr>
+                            <% let search_regex = new RegExp(search_term, "gi"); %>
+                            <% try { %>
+                                <% ( String(result.name).match(search_regex).length ) %>
+                                <td class="highlight"><%= result.name %></td>
+                            <% } catch (error) { %>
+                                <td><%= result.name %></td>
+                            <% } %>
+
+                            <% try { %>
+                                <% String(result.model).match(search_regex).length %>
+                                <td class="highlight"><%= result.model %></td>
+                            <% } catch (error) { %>
+                                <td><%= result.model %></td>
+                            <% } %>
+                            </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No results found.</p>
+        <% } %>
+    <% } %>
+    <p><a href="/reports" class="back">Back to Reports</a></p>
+
+</body>
+</html>

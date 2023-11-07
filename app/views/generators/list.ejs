@@ -1,0 +1,44 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/styles/shared.css">
+        <link rel="stylesheet" href="/styles/generator.css">
+    </head>    
+    <body>
+        <div class="progress-bar">
+            <div class="completed">Household Info</div>
+            <div class="completed">Appliances</div>
+            <div class="completed">Power Generation</div><div class="arrow-right-between"></div>
+            <div class="todo">Done</div><div class="arrow-right-end"></div>
+        </div>
+        <h1>Power Generation</h1>
+
+        <p>You have added these to your household: <%= email %></p>
+
+        <table>
+            <tr>
+                <td>Num</td>
+                <td>Type</td>
+                <td>Monthly kWh</td>
+                <td>Battery kWh</td>
+                <td>Delete</td>
+            </tr>
+            <% gens.forEach(function(gen) { %>
+                <tr>
+                    <td><%= gen.sequence_number %></td>
+                    <td><%= gen.type %></td>
+                    <td><%= gen.avg_monthly %></td>
+                    <td><%= gen.storage_capacity %></td>
+                    <td>
+                        <form class="delete-btn" action="/generators/delete/?email=<%= email %>&seq_number=<%= gen.sequence_number%>" method="post">
+                            <button type="submit" class="delete-btn button">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+
+        <p><a href="/generators/?email=<%= email %>" class="back">+Add more power</a></p>
+        <button class="button"><a href="/submission" class="button">Finish</a></button>
+    </body>
+</html>
